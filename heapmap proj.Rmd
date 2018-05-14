@@ -72,7 +72,7 @@ ggsave(heatmap, plot = heatmap_plot, device = "eps")
 ```
 ```{r}
 heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
-  scale_fill_gradient(low = "white", high = "darkred") +
+  scale_fill_gradient(low = "white", high = "red") +
   ylab ("Species") +
   xlab("") +  
   theme(legend.title = element_text(size = 10),
