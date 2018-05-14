@@ -37,8 +37,64 @@ ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(fill = mean),
   labs(fill = "Percent")
 ```
 
+```{r}
+ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient(low = "white", high = "darkblue") +
+  ylab ("Species") +
+  xlab("") +  
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent")
+```
+
+```{r}
+heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient(low = "white", high = "darkred") +
+  ylab ("Species") +
+  xlab("") +  
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent")
+
+```
 
 
-
-
-
+```{r}
+ggsave(heatmap, plot = heatmap_plot, device = "eps")
+```
+```{r}
+heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient(low = "white", high = "darkred") +
+  ylab ("Species") +
+  xlab("") +  
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent")
+ggsave(heatmap, plot = heatmap_plot_red, device = "eps")
+```
+```{r}
+heatmap_plot_steelblue <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient(low = "white", high = "steelblue") +
+  ylab ("Species") +
+  xlab("") +  
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent")
+ggsave(heatmap, plot = heatmap_plot_steelblue, device = "eps")
+```
