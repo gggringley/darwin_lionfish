@@ -1,0 +1,58 @@
+---
+title: "ANOSIM"
+author: "GG"
+date: "5/21/2018"
+output: html_document
+---
+
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(vegan)
+```
+Upload data and modify to make the first colum the row labels
+```{r}
+ano_fish <- read_csv("~/Desktop/Lionfish/Darwin_matrix.csv")
+
+head(ano_fish)
+```
+
+```{r}
+ano <- anosim(x = ano_fish[,-1], grouping = ano_fish$X1)
+plot(ano)
+```
+
+ANOSIM was not the right test. Will now try hierarchical clustering with UPGMA
+```{r}
+row.names(ano_fish) <- ano_fish$X1
+ano_fish[1] = NULL
+```
+
+```{r}
+clus <- hclust(dist(ano_fish), "average")
+plot(clus)
+```
+
+```{r}
+plot(clus, hang = -1)
+```
+
+```{r}
+hc <- hclust(dist(ano_fish)^2, "cen")
+memb <- cutree(hc, k = 10)
+cent <- NULL
+for(k in 1:10){
+  cent <- rbind(cent, colMeans(USArrests[memb == k, , drop = FALSE]))
+}
+hc1 <- hclust(dist(cent)^2, method = "cen", members = table(memb))
+opar <- par(mfrow = c(1, 2))
+plot(hc, hang = -2, main = "Original Tree")
+plot(hc1, labels = FALSE, hang = -1, main = "Re-start from 10 clusters")
+par(opar)
+```
+
+```{r}
+clus2 <- hclust(dist(ano_fish), "ward.D")
+plot(clus2)
+```
+

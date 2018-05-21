@@ -1,0 +1,32 @@
+---
+title: "lion_density_map"
+author: "GG"
+date: "5/19/2018"
+output: html_document
+---
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(dbplyr)
+```
+
+```{r}
+map <- read_csv("~/Documents/lion_density_map.csv")
+```
+
+```{r}
+head(map)
+plot(map$long, map$lat, pch = 19, cex = log(map$lionfish+1))
+
+
+max(map$lionfish)
+```
+
+```{r}
+den_map <- ggplot(data=map, aes(x=long, y=lat, color = "red", size = lionfish)) + geom_point() + scale_size_area(max_size = 25) + theme_classic()
+den_map
+ggsave(map, plot = den_map, device = "eps", path = "~/Desktop/Lionfish")
+```
+
