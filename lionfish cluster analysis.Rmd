@@ -34,25 +34,30 @@ plot(clus)
 ```
 
 ```{r}
-plot(clus, hang = -1)
+clust_plot <- plot(clus, hang = -1, main = "UPGMA Tree", xlab = "", ylab = "Similarity")
+ggsave(ano_fish, plot = clust_plot, device = "eps")
 ```
 
 ```{r}
 hc <- hclust(dist(ano_fish)^2, "cen")
-memb <- cutree(hc, k = 10)
-cent <- NULL
-for(k in 1:10){
-  cent <- rbind(cent, colMeans(USArrests[memb == k, , drop = FALSE]))
-}
-hc1 <- hclust(dist(cent)^2, method = "cen", members = table(memb))
-opar <- par(mfrow = c(1, 2))
 plot(hc, hang = -2, main = "Original Tree")
-plot(hc1, labels = FALSE, hang = -1, main = "Re-start from 10 clusters")
-par(opar)
+
 ```
 
 ```{r}
 clus2 <- hclust(dist(ano_fish), "ward.D")
 plot(clus2)
+```
+
+```{r}
+clus3 <- hclust(dist(ano_fish), "mcquitty")
+plot(clus3)
+```
+
+
+```{r}
+clus4 <- hclust(dist(ano_fish), "median")
+plot(clus4)
+```
 ```
 

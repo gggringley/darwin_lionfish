@@ -67,6 +67,7 @@ pcaplot
 ```{r}
 ggpcaplot <- pcaplot + theme_classic() + labs(title="")
 ggpcaplot
+ggsave(PCA_fish, plot = ggpcaplot, device = "eps")
 ```
 ```{r}
 cluster3 <- kmeans(PCA_fish, centers = 3, nstart = 25)
