@@ -1,0 +1,117 @@
+---
+title: "Darwin"
+author: "GG"
+date: "5/8/2018"
+output: html_document
+---
+#Darwin Correlation Analyses
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(dbplyr)
+```
+
+```{r}
+darwin <- read_csv("~/Documents/darwin_stats.csv")
+```
+Creating a correlation matrix
+
+```{r}
+corr <- round(cor(darwin), 1)
+```
+
+```{r}
+install.packages("ggcorrplot")
+library(ggcorrplot)
+corr <- round(cor(darwin), 1)
+```
+```{r}
+p.mat <- cor_pmat(darwin)
+p.mat
+
+```
+
+
+```{r}
+darwin_corr <- ggcorrplot(corr, hc.order = TRUE, 
+           type = "lower", 
+           outline.col = "white",
+           p.mat = p.mat,
+           title="Correlogram of Lionfish Density", 
+           colors = c("darkblue", "white", "red"),
+           ggtheme=theme_bw)
+darwin_corr
+ggsave(darwin, plot = darwin_corr, device = "eps", path = "~/Desktop/Lionfish")
+```
+
+Now running a permanova on variables main driving variable to determine relative influence on lionfish densities. Log transforming the data in order to normalize variance.  
+```{r}
+library(vegan)
+perma <- adonis(dist(lionfish_den) ~ log(p_furc + 1)+log(fish_den +1) + log(fish_bio + 1) + log(fish_div + 1) + log(temp + 1), data=darwin, permutations=100000)
+perma
+#keep this one - this is the best and makes the most sense based on the correlation matrix
+```
+
+Visualizing the permanova resutls with a PCA analysis - using log tranformation to driver variables
+```{r}
+# log transform 
+log.lion <- log(darwin[, 2:8] + 1)
+log.lion[6] = NULL
+log.lion[5] = NULL
+darwin.den <- darwin[, 1]
+ 
+# apply PCA - scale. = TRUE is highly 
+# advisable, but default is FALSE. 
+darwin.pca <- prcomp(log.lion,
+                 center = TRUE,
+                 scale. = TRUE) 
+```
+
+
+```{r}
+# print method
+print(darwin.pca)
+```
+
+
+```{r}
+# plot method
+plot(darwin.pca, type = "l")
+```
+In order to create the biplot we need devtools and ggbiplot available from CRAN and github
+```{r}
+install.packages(https://github.com/r-lib/devtools.git)
+```
+
+```{r}
+library(devtools)
+install_github("vqv/ggbiplot")
+ 
+library(ggbiplot)
+g <- ggbiplot(darwin.pca, obs.scale = 1, var.scale = 1, 
+              groups = as.character(darwin.den), ellipse = FALSE, 
+              circle = FALSE)
+g <- g + scale_color_discrete(name = '')
+g <- g + theme(legend.direction = 'horizontal', 
+               legend.position = 'top')
+print(g)
+
+```
+This is a standard PCA visualization with eigenvalues
+```{r}
+library(ggfortify)
+autoplot(darwin.pca, loadings = TRUE, loadings.colour = 'blue', size = 3,
+         loadings.label = TRUE, loadings.label.size = 5)
+```
+Here we include lionfish density
+```{r}
+d.factanal <- factanal(log.lion, factors = 2, scores = 'regression')
+pca.plot <- autoplot(d.factanal, data = darwin, colour = 'lionfish_den', size = 3,
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
+pca.plot
+ggsave(darwin, plot = pca.plot, device = "eps", path = "~/Desktop/Lionfish")
+```
+
+Throughout this code I reference my computer desktop for reading and saving files, however the data files are available in github and can be accessed with a quick modification to the code. 
