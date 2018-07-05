@@ -2,7 +2,9 @@
 title: "Darwin"
 author: "GG"
 date: "5/8/2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 #Darwin Correlation Analyses
 ```{r}
@@ -115,3 +117,73 @@ ggsave(darwin, plot = pca.plot, device = "eps", path = "~/Desktop/Lionfish")
 ```
 
 Throughout this code I reference my computer desktop for reading and saving files, however the data files are available in github and can be accessed with a quick modification to the code. 
+
+
+```{r}
+library(vegan)
+perma3 <- adonis(dist(lionfish_den) ~ (fish_bio), data=darwin, permutations=999)
+perma3
+#untranformed data
+```
+
+```{r}
+darwin.pca2 <- darwin[,2:8]
+d.factanal <- factanal(darwin.pca2, factors = 2, scores = 'regression')
+pca.plot <- autoplot(d.factanal, data = darwin, colour = 'lionfish_den', size = 3,
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
+pca.plot
+```
+
+```{r}
+fit <- glm((lionfish_den + 1)~fish_bio, data=darwin, family = Gamma())
+fit
+```
+
+```{r}
+hist(resid(fit))
+qqnorm(resid(fit))
+qqline(resid(fit))
+```
+
+```{r}
+
+AIC(fit)
+summary(fit)
+```
+```{r}
+scale((darwin[,2:8]), center = TRUE, scale = TRUE)
+fit2 <- glm((lionfish_den + 1)~fish_bio+fish_den+p_furc+fish_div+temp, data=darwin, family = Gamma())
+summary(fit2)
+```
+
+```{r}
+install.packages('data.table')
+library(car)
+sqrt(vif(fit2))
+```
+
+```{r}
+darwin2 <- read_csv("~/Documents/darwin_stats.csv")
+fit_bio <- glm((lionfish_den + 1)~fish_bio, data=darwin2, family = Gamma())
+fit_den <- glm((lionfish_den + 1)~fish_den, data=darwin2, family = Gamma())
+fit_div <- glm((lionfish_den + 1)~fish_div, data=darwin2, family = Gamma())
+fit_pfur <- glm((lionfish_den + 1)~p_furc, data=darwin2, family = Gamma())
+fit_temp <- glm((lionfish_den + 1)~temp, data=darwin2, family = Gamma())
+AIC(fit_bio, fit_den, fit_pfur, fit_temp)
+coef(fit_bio, fit_den, fit_pfur, fit_temp)
+```
+```{r}
+coef(fit_bio) 
+coef(fit_den) 
+coef(fit_pfur) 
+coef(fit_temp)
+```
+```{r}
+fit_bio <- glm((lionfish_den + 1)~fish_bio, data=darwin2)
+fit_den <- glm((lionfish_den + 1)~fish_den, data=darwin2)
+fit_div <- glm((lionfish_den + 1)~fish_div, data=darwin2)
+fit_pfur <- glm((lionfish_den + 1)~p_furc, data=darwin2)
+fit_temp <- glm((lionfish_den + 1)~temp, data=darwin2)
+AIC(fit_bio, fit_den, fit_div, fit_pfur, fit_temp)
+```
+
