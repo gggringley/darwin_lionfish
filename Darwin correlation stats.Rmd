@@ -48,7 +48,7 @@ darwin_corr
 ggsave(darwin, plot = darwin_corr, device = "eps", path = "~/Desktop/Lionfish")
 ```
 
-Now running a permanova on variables main driving variable to determine relative influence on lionfish densities. Log transforming the data in order to normalize variance.  
+Now running a permanova on variables main driving variable to determine relative influence on lionfish densities. Log transforming the data in order to normalize variance.  * NOT THE CORRECT TEST _ NEED TO DO MODEL COMPARISON WITH GLM*
 ```{r}
 library(vegan)
 perma <- adonis(dist(lionfish_den) ~ log(p_furc + 1)+log(fish_den +1) + log(fish_bio + 1) + log(fish_div + 1) + log(temp + 1), data=darwin, permutations=100000)
@@ -57,6 +57,7 @@ perma
 ```
 
 Visualizing the permanova resutls with a PCA analysis - using log tranformation to driver variables
+*should not transform for the pca figure*
 ```{r}
 # log transform 
 log.lion <- log(darwin[, 2:8] + 1)
@@ -128,6 +129,8 @@ perma3
 
 ```{r}
 darwin.pca2 <- darwin[,2:8]
+darwin.pca2[6] = NULL
+darwin.pca2[5] = NULL
 d.factanal <- factanal(darwin.pca2, factors = 2, scores = 'regression')
 pca.plot <- autoplot(d.factanal, data = darwin, colour = 'lionfish_den', size = 3,
          loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
