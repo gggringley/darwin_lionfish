@@ -52,15 +52,7 @@ library(devtools)
 library(ggbiplot)
 library(ggfortify)
 ```
-```{r}
-g <- ggbiplot(pca, obs.scale = 1, var.scale = 1, 
-              groups = as.character(darwin.den), ellipse = FALSE, 
-              circle = FALSE)
-g <- g + scale_color_discrete(name = '')
-g <- g + theme(legend.direction = 'horizontal', 
-               legend.position = 'top')
-print(g)
-```
+
 
 ```{r}
 d.factanal <- factanal(darwin.pca, factors = 2, scores = 'regression')
@@ -123,3 +115,19 @@ hist(resid(fit_pfur))
 qqnorm(resid(fit_pfur))
 qqline(resid(fit_pfur))
 ```
+
+```{r}
+coef(fit_bio)
+coef(fit_pfur) 
+coef(fit_temp) 
+coef(fit_div)
+coef(fit_den)
+```
+
+
+
+
+
+
+
+
