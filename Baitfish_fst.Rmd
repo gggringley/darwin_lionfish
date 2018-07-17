@@ -1,0 +1,32 @@
+---
+title: "Baitfish figs"
+author: "GG"
+date: "7/17/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+anchoa_bda <- read_csv("~/Desktop/Baitfish sequences/Acho_Fst_BDA.csv")
+```
+
+```{r}
+library(tidyverse)
+row.names(anchoa_bda) <- anchoa_bda$X1
+anchoa_bda[1] = NULL
+```
+
+```{r}
+library(ggcorrplot)
+ggcorrplot((anchoa_bda * 10), hc.order = FALSE, 
+           type = "full", 
+           lab = TRUE, 
+           lab_size = 3, 
+           colors = c("bisque", "white", "red"), 
+           title="Anchoa Fst", 
+           ggtheme=theme_classic)
+```
+
