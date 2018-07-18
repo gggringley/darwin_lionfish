@@ -21,12 +21,80 @@ anchoa_bda[1] = NULL
 
 ```{r}
 library(ggcorrplot)
-ggcorrplot((anchoa_bda * 10), hc.order = FALSE, 
+ggcorrplot((anchoa_bda), hc.order = FALSE, 
            type = "full", 
            lab = TRUE, 
            lab_size = 3, 
-           colors = c("bisque", "white", "red"), 
+           colors = c("white", "white", "red"), 
            title="Anchoa Fst", 
            ggtheme=theme_classic)
 ```
+
+```{r}
+hypo_bda <- read_csv("~/Desktop/Baitfish sequences/hypo_Fst.csv")
+```
+```{r}
+library(tidyverse)
+row.names(hypo_bda) <- hypo_bda$X1
+hypo_bda[1] = NULL
+```
+
+```{r}
+library(ggcorrplot)
+ggcorrplot((hypo_bda), hc.order = FALSE, 
+           type = "full", 
+           lab = TRUE, 
+           lab_size = 3, 
+           colors = c("white", "white", "red"), 
+           title="H. harringtonensis Fst", 
+           ggtheme=theme_classic)
+```
+```{r}
+hahu_bda <- read_csv("~/Desktop/Baitfish sequences/hahu_Fst.csv")
+library(tidyverse)
+row.names(hahu_bda) <- hahu_bda$X1
+hahu_bda[1] = NULL
+library(ggcorrplot)
+ggcorrplot((hahu_bda), hc.order = FALSE, 
+           type = "full", 
+           lab = TRUE, 
+           lab_size = 3, 
+           colors = c("white", "white", "red"), 
+           title="H. humerensis Fst", 
+           ggtheme=theme_classic)
+```
+
+```{r}
+jlam_bda <- read_csv("~/Desktop/Baitfish sequences/jlam_Fst.csv")
+library(tidyverse)
+row.names(jlam_bda) <- jlam_bda$X1
+jlam_bda[1] = NULL
+library(ggcorrplot)
+ggcorrplot((jlam_bda), hc.order = FALSE, 
+           type = "full", 
+           lab = TRUE, 
+           lab_size = 3, 
+           colors = c("white", "white", "red"), 
+           title="J. lamprotaenia Fst", 
+           ggtheme=theme_classic)
+```
+
+
+```{r}
+opio_bda <- read_csv("~/Desktop/Baitfish sequences/opio_Fst.csv")
+library(tidyverse)
+row.names(opio_bda) <- opio_bda$X1
+opio_bda[1] = NULL
+library(ggcorrplot)
+ggcorrplot((opio_bda), hc.order = FALSE, 
+           type = "full", 
+           lab = TRUE, 
+           lab_size = 3, 
+           colors = c("white", "white", "red"), 
+           title="O. oglinum Fst", 
+           ggtheme=theme_classic)
+```
+
+
+
 
