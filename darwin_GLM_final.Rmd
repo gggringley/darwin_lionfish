@@ -1,15 +1,15 @@
 ---
-title: "Darwin PCA and GLM"
+title: "darwin_revised"
 author: "GG"
-date: "7/11/2018"
-output:
-  pdf_document: default
-  html_document: default
+date: "12/17/2018"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## R Markdown
 
 ```{r}
 library(ggplot2)
@@ -20,13 +20,12 @@ library(dbplyr)
 ```
 
 ```{r}
-darwin <- read_csv("~/Documents/darwin_stats.csv")
+darwin <- read_csv("~/Documents/darwin_stats2.csv")
 ```
 
 ```{r}
 library(vegan)
 ```
-
 
 Visualizing the GLM resutls with a PCA analysis
 ```{r}
@@ -47,10 +46,6 @@ pca <- prcomp(darwin.pca,
 # print method
 print(pca)
 ```
-```{r}
-# plot method
-plot(pca, type = "l")
-```
 
 In order to create the biplot we need devtools and ggbiplot available from CRAN and github
 
@@ -62,16 +57,12 @@ library(ggfortify)
 
 
 ```{r}
-d.factanal <- factanal(darwin.pca, factors = 2, scores = 'regression')
-pca.plot <- autoplot(d.factanal, data = darwin, colour = 'lionfish_den', size = 4,
+d.factanal2 <- factanal(darwin.pca, factors = 2, scores = 'regression')
+pca.plot2 <- autoplot(d.factanal2, data = darwin, colour = 'lionfish_den', size = 4,
          loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
-pca.plot
+pca.plot2
 ```
 
-
-```{r}
-ggsave(darwin, plot = pca.plot, device = "eps", path = "~/Desktop/Lionfish")
-```
 
 NOW FOR THE GLM
 *using Gamma distribution as this model results in the most "normal" data, see plots below of model fits*  
@@ -90,7 +81,7 @@ summary(fit_div)
 summary(fit_pfur)
 summary(fit_temp)
 ```
-Results of the GLM model show temperature has the lowest AIC value as is therefore the best fit model. Temperature is also the only significant response variable and thus is the strongest driver of lionfish densities* Cool :) These results are represented in table form in the corresponding manuscript. 
+
 ```{r}
 hist(resid(fit_temp))
 qqnorm(resid(fit_temp))
@@ -109,13 +100,11 @@ qqnorm(resid(fit_div))
 qqline(resid(fit_div))
 ```
 
-
 ```{r}
 hist(resid(fit_bio))
 qqnorm(resid(fit_bio))
 qqline(resid(fit_bio))
 ```
-
 
 ```{r}
 hist(resid(fit_pfur))
@@ -130,21 +119,3 @@ coef(fit_temp)
 coef(fit_div)
 coef(fit_den)
 ```
-
-
-```{r}
-citation(package = "ggbiplot")
-```
-```{r}
-citation(package = "devtools")
-```
-
-```{r}
-citation(package = "ggfortify")
-```
-
-```{r}
-citation()
-```
-
-
