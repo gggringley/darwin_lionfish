@@ -2,7 +2,10 @@
 title: "darwin_revised"
 author: "GG"
 date: "12/17/2018"
-output: html_document
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -62,7 +65,9 @@ pca.plot2 <- autoplot(d.factanal2, data = darwin, colour = 'lionfish_den', size 
          loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
 pca.plot2
 ```
-
+```{r}
+ggsave(darwin, plot = pca.plot2, device = "eps", path = "~/Desktop/Lionfish")
+```
 
 NOW FOR THE GLM
 *using Gamma distribution as this model results in the most "normal" data, see plots below of model fits*  
