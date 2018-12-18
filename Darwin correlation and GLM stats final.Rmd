@@ -1,0 +1,127 @@
+---
+title: "Darwin"
+author: "GG"
+date: "5/8/2018"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Darwin Correlation Analyses
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(readxl)
+library(janitor)
+library(dbplyr)
+```
+Throughout this code I reference my computer desktop for reading and saving files, however the data files are available in github and can be accessed with a quick modification to the code.
+```{r}
+darwin <- read_csv("~/Documents/darwin_stats2.csv")
+```
+Creating a correlation matrix
+
+```{r}
+corr <- round(cor(darwin), 1)
+```
+
+```{r}
+install.packages("ggcorrplot")
+library(ggcorrplot)
+corr <- round(cor(darwin), 1)
+```
+```{r}
+p.mat <- cor_pmat(darwin)
+p.mat
+
+```
+
+This figure includes the r values. These values can be removed by elimiating the lab = TRUE assignment
+```{r}
+darwin_corr <- ggcorrplot(corr, hc.order = TRUE, 
+           type = "lower", 
+           lab = TRUE, 
+           lab_size = 3, outline.col = "white",
+           p.mat = p.mat,
+           title="Correlogram of Lionfish Density", 
+           colors = c("darkblue", "white", "red"),
+           ggtheme=theme_bw)
+darwin_corr
+ggsave(darwin, plot = darwin_corr, device = "eps", path = "~/Desktop/Lionfish")
+```
+
+
+
+In order to create the biplot we need devtools and ggbiplot available from CRAN and github
+```{r}
+install.packages(https://github.com/r-lib/devtools.git)
+```
+
+Here we run a PCA analysis with eigenvalues and incorporate lionfish density
+
+This is the code used to create the factanal pca plot used in the manuscript using darwin_stats2 datafile
+```{r}
+darwin.pca3 <- darwin[,2:8]
+darwin.pca3[6] = NULL
+darwin.pca3[5] = NULL
+d.factanal <- factanal(darwin.pca3, factors = 2, scores = 'regression')
+pca.plot <- autoplot(d.factanal, data = darwin, colour = 'lionfish_den', size = 3,
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic()
+pca.plot
+```
+
+```{r}
+fit2 <- glm((lionfish_den + 1)~fish_bio, data=darwin, family = Gamma())
+fit2
+```
+
+```{r}
+hist(resid(fit2))
+qqnorm(resid(fit2))
+qqline(resid(fit2))
+```
+
+```{r}
+
+AIC(fit2)
+summary(fit2)
+```
+
+GLM model with all variables included showing covariance among possible drivers. 
+```{r}
+scale((darwin[,2:8]), center = TRUE, scale = TRUE)
+fit3 <- glm((lionfish_den + 1)~fish_bio+fish_den+p_furc+fish_div+temp, data=darwin, family = Gamma())
+summary(fit3)
+```
+
+```{r}
+install.packages('data.table')
+library(car)
+sqrt(vif(fit3))
+```
+
+```{r}
+darwin3 <- read_csv("~/Documents/darwin_stats2.csv")
+scale((darwin3[,2:8]), center = TRUE, scale = TRUE)
+fit_bio2 <- glm((lionfish_den + 1)~fish_bio, data=darwin3, family = Gamma())
+fit_den2 <- glm((lionfish_den + 1)~fish_den, data=darwin3, family = Gamma())
+fit_div2 <- glm((lionfish_den + 1)~fish_div, data=darwin3, family = Gamma(), start = c(0.5, 0.5))
+fit_pfur2 <- glm((lionfish_den + 1)~p_furc, data=darwin3, family = Gamma())
+fit_temp2 <- glm((lionfish_den + 1)~temp, data=darwin3, family = Gamma())
+AIC(fit_bio2, fit_den2, fit_div2, fit_pfur2, fit_temp2)
+coef(fit_bio2, fit_den2, fit_div2, fit_pfur2, fit_temp2)
+```
+```{r}
+coef(fit_bio2) 
+coef(fit_den2)
+coef(fit_div2)
+coef(fit_pfur2) 
+coef(fit_temp2)
+```
+
+
