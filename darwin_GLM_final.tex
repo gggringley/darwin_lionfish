@@ -24,7 +24,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
-            pdftitle={darwin\_revised},
+            pdftitle={darwin\_GLM},
             pdfauthor={GG},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -113,7 +113,7 @@
 }
 
 \setlength{\droptitle}{-2em}
-  \title{darwin\_revised}
+  \title{darwin\_GLM}
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
   \author{GG}
@@ -241,15 +241,15 @@ Visualizing the GLM resutls with a PCA analysis
 
 \begin{verbatim}
 ## Standard deviations (1, .., p=5):
-## [1] 1.6353447 1.0393839 0.7782248 0.6744062 0.4299666
+## [1] 1.6527303 1.0391372 0.7639914 0.6501548 0.4269572
 ## 
 ## Rotation (n x k) = (5 x 5):
-##                   PC1         PC2        PC3         PC4         PC5
-## fish_div -0.003413205 -0.91211057 -0.4080347  0.01744689  0.03529841
-## fish_den  0.548495322 -0.10675208  0.3076731  0.24452022  0.73027666
-## fish_bio  0.521156727  0.08609343 -0.2128905  0.64775332 -0.50604039
-## temp     -0.439450793 -0.29667886  0.6738480  0.48878935 -0.16086802
-## p_furc    0.484169287 -0.24744267  0.4893378 -0.53047722 -0.42836272
+##                   PC1        PC2        PC3         PC4         PC5
+## fish_div -0.007165718 -0.9169657 -0.3946599  0.04103037 -0.04102009
+## fish_den  0.542395402 -0.1071666  0.2788520 -0.33027914 -0.71237616
+## fish_bio  0.518714486  0.0871676 -0.3271884 -0.58406751  0.52454742
+## temp     -0.457733358 -0.2765148  0.5690557 -0.59457821  0.19149965
+## p_furc    0.476624942 -0.2522511  0.5793173  0.44110553  0.42310217
 \end{verbatim}
 
 In order to create the biplot we need devtools and ggbiplot available
@@ -375,8 +375,20 @@ from CRAN and github
 
 \includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-7-1.pdf}
 
-NOW FOR THE GLM \emph{using Gamma distribution as this model results in
-the most ``normal'' data, see plots below of model fits}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(darwin, }\DataTypeTok{plot =}\NormalTok{ pca.plot2, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{, }\DataTypeTok{path =} \StringTok{"~/Desktop/Lionfish"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
+
+NOW FOR THE GLM
+
+GLM model with all variables included showing covariance among possible
+drivers.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -385,18 +397,18 @@ the most ``normal'' data, see plots below of model fits}
 \end{Shaded}
 
 \begin{verbatim}
-##         fish_div   fish_den   fish_bio        temp       c_bda    c_enchry
-##  [1,]  0.4809800  1.4365108  1.2281635 -0.09399786  0.09054847  2.60244718
-##  [2,] -0.0497952  2.0336000  0.5682290 -0.78331818  0.23309789 -0.43401594
-##  [3,] -0.1564501  0.8528393  2.0426555 -1.47263851 -0.37682665  0.99732680
-##  [4,]  0.2879963 -0.6834913  0.5114883 -0.09399786 -0.73904237  0.08487951
-##  [5,] -0.5657100 -0.7103267 -0.5480014 -0.09399786 -0.57546108 -0.64805727
-##  [6,]  0.0724305 -0.7639977 -0.8468391 -1.12797821 -0.59882984 -0.48007135
-##  [7,]  0.2267893  0.0410664 -0.5568844 -0.09399786  2.35211988 -0.66488296
-##  [8,] -1.3837317 -0.1199464  0.1806320  0.59532246  1.36414569 -0.65962493
-##  [9,] -0.7697882 -0.6029849 -0.6502334 -0.09399786 -0.73904237  0.10444226
-## [10,]  2.5176680 -0.6029849 -0.7515916  1.28463865 -0.27166725 -0.23756036
-## [11,] -0.6603889 -0.8802847 -1.1776184  1.97396311 -0.73904237 -0.66488296
+##         fish_div   fish_den   fish_bio       temp       c_bda    c_enchry
+##  [1,]  0.4809800  1.4365108  1.2281635 -0.1297499  0.09054847  2.60244718
+##  [2,] -0.0497952  2.0336000  0.5682290 -0.8433746  0.23309789 -0.43401594
+##  [3,] -0.1564501  0.8528393  2.0426555 -1.5569993 -0.37682665  0.99732680
+##  [4,]  0.2879963 -0.6834913  0.5114883 -0.1297499 -0.73904237  0.08487951
+##  [5,] -0.5657100 -0.7103267 -0.5480014 -0.1297499 -0.57546108 -0.64805727
+##  [6,]  0.0724305 -0.7639977 -0.8468391 -0.8433703 -0.59882984 -0.48007135
+##  [7,]  0.2267893  0.0410664 -0.5568844 -0.1297499  2.35211988 -0.66488296
+##  [8,] -1.3837317 -0.1199464  0.1806320  0.5838747  1.36414569 -0.65962493
+##  [9,] -0.7697882 -0.6029849 -0.6502334 -0.1297499 -0.73904237  0.10444226
+## [10,]  2.5176680 -0.6029849 -0.7515916  1.2974951 -0.27166725 -0.23756036
+## [11,] -0.6603889 -0.8802847 -1.1776184  2.0111241 -0.73904237 -0.66488296
 ##           p_furc
 ##  [1,] -0.1154827
 ##  [2,]  2.7300946
@@ -411,12 +423,143 @@ the most ``normal'' data, see plots below of model fits}
 ## [11,] -0.5756534
 ## attr(,"scaled:center")
 ##     fish_div     fish_den     fish_bio         temp        c_bda 
-## 1.043875e+00 3.456499e+03 2.160150e+05 2.229798e+01 7.658861e+03 
+## 1.043875e+00 3.456499e+03 2.160150e+05 2.232323e+01 7.658861e+03 
 ##     c_enchry       p_furc 
 ## 5.930354e+04 2.953466e+04 
 ## attr(,"scaled:scale")
 ##     fish_div     fish_den     fish_bio         temp        c_bda 
-## 2.459291e-01 3.105964e+03 1.395158e+05 8.059469e-01 1.036322e+04 
+## 2.459291e-01 3.105964e+03 1.395158e+05 7.784982e-01 1.036322e+04 
+##     c_enchry       p_furc 
+## 8.919395e+04 4.947341e+04
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit3 <-}\StringTok{ }\KeywordTok{glm}\NormalTok{((lionfish_den }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{)}\OperatorTok{~}\NormalTok{fish_bio}\OperatorTok{+}\NormalTok{fish_den}\OperatorTok{+}\NormalTok{p_furc}\OperatorTok{+}\NormalTok{fish_div}\OperatorTok{+}\NormalTok{temp, }\DataTypeTok{data=}\NormalTok{darwin, }\DataTypeTok{family =} \KeywordTok{Gamma}\NormalTok{())}
+\KeywordTok{summary}\NormalTok{(fit3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## glm(formula = (lionfish_den + 1) ~ fish_bio + fish_den + p_furc + 
+##     fish_div + temp, family = Gamma(), data = darwin)
+## 
+## Deviance Residuals: 
+##        1         2         3         4         5         6         7  
+##  0.99338  -0.01022  -0.07290   0.21486   1.00862   0.06599  -0.25767  
+##        8         9        10        11  
+## -2.39063  -2.52108  -2.36179   0.22330  
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -1.874e-01  2.059e-01  -0.910    0.404
+## fish_bio    -1.507e-08  3.034e-08  -0.497    0.640
+## fish_den     1.731e-06  1.923e-06   0.900    0.409
+## p_furc      -1.234e-07  9.613e-08  -1.284    0.255
+## fish_div    -8.316e-04  3.266e-02  -0.025    0.981
+## temp         9.128e-03  9.275e-03   0.984    0.370
+## 
+## (Dispersion parameter for Gamma family taken to be 1.350902)
+## 
+##     Null deviance: 33.732  on 10  degrees of freedom
+## Residual deviance: 19.825  on  5  degrees of freedom
+## AIC: 135.85
+## 
+## Number of Fisher Scoring iterations: 6
+\end{verbatim}
+
+Testing covairance
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'car' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'carData' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'car'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     recode
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     some
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{vif}\NormalTok{(fit3))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## fish_bio fish_den   p_furc fish_div     temp 
+## 2.933760 3.842427 4.704210 1.189441 2.854775
+\end{verbatim}
+
+\emph{using Gamma distribution as this model results in the most
+``normal'' data, see plots below of model fits}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{scale}\NormalTok{((darwin[,}\DecValTok{2}\OperatorTok{:}\DecValTok{8}\NormalTok{]), }\DataTypeTok{center =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{scale =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         fish_div   fish_den   fish_bio       temp       c_bda    c_enchry
+##  [1,]  0.4809800  1.4365108  1.2281635 -0.1297499  0.09054847  2.60244718
+##  [2,] -0.0497952  2.0336000  0.5682290 -0.8433746  0.23309789 -0.43401594
+##  [3,] -0.1564501  0.8528393  2.0426555 -1.5569993 -0.37682665  0.99732680
+##  [4,]  0.2879963 -0.6834913  0.5114883 -0.1297499 -0.73904237  0.08487951
+##  [5,] -0.5657100 -0.7103267 -0.5480014 -0.1297499 -0.57546108 -0.64805727
+##  [6,]  0.0724305 -0.7639977 -0.8468391 -0.8433703 -0.59882984 -0.48007135
+##  [7,]  0.2267893  0.0410664 -0.5568844 -0.1297499  2.35211988 -0.66488296
+##  [8,] -1.3837317 -0.1199464  0.1806320  0.5838747  1.36414569 -0.65962493
+##  [9,] -0.7697882 -0.6029849 -0.6502334 -0.1297499 -0.73904237  0.10444226
+## [10,]  2.5176680 -0.6029849 -0.7515916  1.2974951 -0.27166725 -0.23756036
+## [11,] -0.6603889 -0.8802847 -1.1776184  2.0111241 -0.73904237 -0.66488296
+##           p_furc
+##  [1,] -0.1154827
+##  [2,]  2.7300946
+##  [3,]  0.4089936
+##  [4,]  0.6103919
+##  [5,] -0.5969805
+##  [6,] -0.4244987
+##  [7,] -0.5969805
+##  [8,] -0.5908870
+##  [9,] -0.5969805
+## [10,] -0.2520169
+## [11,] -0.5756534
+## attr(,"scaled:center")
+##     fish_div     fish_den     fish_bio         temp        c_bda 
+## 1.043875e+00 3.456499e+03 2.160150e+05 2.232323e+01 7.658861e+03 
+##     c_enchry       p_furc 
+## 5.930354e+04 2.953466e+04 
+## attr(,"scaled:scale")
+##     fish_div     fish_den     fish_bio         temp        c_bda 
+## 2.459291e-01 3.105964e+03 1.395158e+05 7.784982e-01 1.036322e+04 
 ##     c_enchry       p_furc 
 ## 8.919395e+04 4.947341e+04
 \end{verbatim}
@@ -508,7 +651,7 @@ the most ``normal'' data, see plots below of model fits}
 ## fit_bio   3 132.1325
 ## fit_den   3 132.9021
 ## fit_pfur  3 133.0543
-## fit_temp  3 130.8770
+## fit_temp  3 130.5879
 ## fit_div   3 135.4520
 \end{verbatim}
 
@@ -661,20 +804,20 @@ the most ``normal'' data, see plots below of model fits}
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.6965  -1.6239  -0.2054   0.3340   1.4827  
+## -2.7016  -1.6302  -0.3070   0.3184   1.4462  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(>|t|)  
-## (Intercept) -0.163059   0.071533  -2.279   0.0486 *
-## temp         0.007778   0.003367   2.310   0.0462 *
+## (Intercept) -0.162890   0.066513  -2.449   0.0368 *
+## temp         0.007765   0.003134   2.478   0.0351 *
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Gamma family taken to be 1.237724)
+## (Dispersion parameter for Gamma family taken to be 1.165115)
 ## 
 ##     Null deviance: 33.732  on 10  degrees of freedom
-## Residual deviance: 24.624  on  9  degrees of freedom
-## AIC: 130.88
+## Residual deviance: 24.127  on  9  degrees of freedom
+## AIC: 130.59
 ## 
 ## Number of Fisher Scoring iterations: 6
 \end{verbatim}
@@ -685,7 +828,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -694,7 +837,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-9-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -702,7 +845,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -711,7 +854,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-10-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -719,7 +862,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-11-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -728,7 +871,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-11-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -736,7 +879,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -745,7 +888,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -753,7 +896,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -762,7 +905,7 @@ the most ``normal'' data, see plots below of model fits}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -794,7 +937,7 @@ the most ``normal'' data, see plots below of model fits}
 
 \begin{verbatim}
 ##  (Intercept)         temp 
-## -0.163058692  0.007778458
+## -0.162889556  0.007764716
 \end{verbatim}
 
 \begin{Shaded}

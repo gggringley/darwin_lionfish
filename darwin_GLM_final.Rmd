@@ -1,11 +1,11 @@
 ---
-title: "darwin_revised"
+title: "darwin_GLM"
 author: "GG"
 date: "12/17/2018"
 output:
+  html_document: default
   word_document: default
   pdf_document: default
-  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -70,6 +70,18 @@ ggsave(darwin, plot = pca.plot2, device = "eps", path = "~/Desktop/Lionfish")
 ```
 
 NOW FOR THE GLM
+
+GLM model with all variables included showing covariance among possible drivers. 
+```{r}
+scale((darwin[,2:8]), center = TRUE, scale = TRUE)
+fit3 <- glm((lionfish_den + 1)~fish_bio+fish_den+p_furc+fish_div+temp, data=darwin, family = Gamma())
+summary(fit3)
+```
+Testing covairance
+```{r}
+library(car)
+sqrt(vif(fit3))
+```
 *using Gamma distribution as this model results in the most "normal" data, see plots below of model fits*  
 ```{r}
 scale((darwin[,2:8]), center = TRUE, scale = TRUE)
