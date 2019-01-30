@@ -3,8 +3,8 @@ title: "Correlation_matrix"
 author: "GG"
 date: "1/28/2019"
 output:
-  html_document: default
   word_document: default
+  html_document: default
   pdf_document: default
 ---
 
@@ -30,7 +30,6 @@ corr <- round(cor(darwin), 1)
 ```
 
 ```{r}
-install.packages("ggcorrplot")
 library(ggcorrplot)
 corr <- round(cor(darwin), 1)
 ```
