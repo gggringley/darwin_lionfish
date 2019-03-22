@@ -1,11 +1,11 @@
 ---
-title: "darwin_GLM"
+title: "lionfish_GLM"
 author: "GG"
 date: "12/17/2018"
 output:
-  html_document: default
-  word_document: default
   pdf_document: default
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -68,6 +68,16 @@ pca.plot2
 ```{r}
 ggsave(darwin, plot = pca.plot2, device = "eps", path = "~/Desktop/Lionfish")
 ```
+Changing size of bubbles to reflect lionfish density
+```{r}
+pca.plot3 <- autoplot(d.factanal2, data = darwin, colour = 'lionfish_den', size = 'lionfish_den',
+         loadings = TRUE, loadings.label = TRUE, loadings.label.size  = 5) + theme_classic() +  scale_color_continuous(limits=c(0, 700), breaks=seq(0, 700, by=200)) +
+   guides(color= guide_legend(), size=guide_legend()) + scale_size_continuous(limits=c(0, 700), breaks=seq(0, 700, by=200)) + scale_size_continuous(range = c(2,12))
+pca.plot3
+```
+```{r}
+ggsave(filename = "lionfish_pca_rev3.eps", plot = pca.plot3, device = "eps", path = "~/Desktop/Lionfish")
+```
 
 NOW FOR THE GLM
 
@@ -79,6 +89,7 @@ summary(fit3)
 ```
 Testing covairance
 ```{r}
+install.packages('data.table')
 library(car)
 sqrt(vif(fit3))
 ```
@@ -101,8 +112,9 @@ summary(fit_temp)
 
 ```{r}
 hist(resid(fit_temp))
-qqnorm(resid(fit_temp))
+qqnorm(resid(fit_temp)) 
 qqline(resid(fit_temp))
+
 ```
 
 ```{r}
