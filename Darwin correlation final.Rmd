@@ -3,9 +3,9 @@ title: "Correlation_matrix"
 author: "GG"
 date: "1/28/2019"
 output:
-  word_document: default
-  html_document: default
   pdf_document: default
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -39,7 +39,7 @@ p.mat
 
 ```
 
-This figure includes the r values. These values can be removed by elimiating the lab = TRUE assignment
+This figure includes the r values. These values can be removed by elimiating the lab = TRUE assignment. TO remove the grid lines change ggtheme to theme_classic
 ```{r}
 darwin_corr <- ggcorrplot(corr, hc.order = TRUE, 
            type = "lower", 

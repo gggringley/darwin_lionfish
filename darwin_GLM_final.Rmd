@@ -3,8 +3,8 @@ title: "lionfish_GLM"
 author: "GG"
 date: "12/17/2018"
 output:
-  pdf_document: default
   word_document: default
+  pdf_document: default
   html_document: default
 ---
 

@@ -22,11 +22,11 @@ heatmap <- read_csv("~/Desktop/Lionfish/Heatmap data.csv")
 ```
 
 plot data
-
+Basic Heatplot
 ```{r}
 ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(fill = mean))
 ```
-
+Changing color schemes
 ```{r}
 ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(fill = mean), color = "white") +
   scale_fill_gradient(low = "white", high = "darkred") +
@@ -39,7 +39,7 @@ ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(fill = mean),
         axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(fill = "Percent")
 ```
-
+Changing the order of the fish species
 ```{r}
 ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
   scale_fill_gradient(low = "white", high = "darkblue") +
@@ -54,24 +54,10 @@ axis.text.y=element_text(face="italic")) +
   labs(fill = "Percent")
 ```
 
-```{r}
-heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
-  scale_fill_gradient(low = "white", high = "darkred") +
-  ylab ("Species") +
-  xlab("") +  
-  theme(legend.title = element_text(size = 10),
-        legend.text = element_text(size = 12),
-        plot.title = element_text(size=16),
-        axis.title=element_text(size=14,face="bold"),
-        axis.text.x = element_text(angle = 45, hjust = 1),
-axis.text.y=element_text(face="italic")) +
-  labs(fill = "Percent")
-heatmap_plot_red
-```
-
+First version sent to review
 
 ```{r}
-heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, median, order = TRUE), fill = mean), color = "white") +
+heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, order = TRUE), fill = mean), color = "white") +
   scale_fill_gradient(low = "white", high = "red") +
   ylab ("Species") +
   xlab("") +  
@@ -83,7 +69,67 @@ heatmap_plot_red <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_ti
 axis.text.y=element_text(face="italic")) +
   labs(fill = "Percent")
 heatmap_plot_red
-ggsave(heatmap, plot = heatmap_plot_red, device = "eps")
+ggsave(plot = heatmap_plot_red, path= "~/Desktop/Lionfish", filename = "heatmap_plot_red_rev.eps", device = "eps")
 ```
+
+Modifications made based on reviewer comments, including changing the x-axis to reorder sites in clockwise location around Bermuda and using mean instead of median for the order of the species. 
+
+```{r}
+# reorder x axis to go around the platform
+# mtcars$cyl2 <- factor(mtcars$cyl, levels = c("6","4","8"))
+heatmap$site <- as.character(heatmap$site)
+heatmap$site <- factor(heatmap$site, levels = c("Angel", "Dark_Slime", "N_Rock", "Reel_Sticky", "NNE", "XL", "Coopers", "Tuckers", "Spittal", "Elbow", "Tiger"))
+heatmap_plot_rev <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient(low = "white", high = "red") +
+  ylab ("Species") +
+  xlab("") + theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14,face="bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent")
+heatmap_plot_rev
+ggsave(plot = heatmap_plot_rev, path= "~/Desktop/Lionfish", filename = "heatmap_plot_rev.eps", device = "eps")
+```
+
+Adjusting colors and font size
+
+```{r}
+heatmap$site <- as.character(heatmap$site)
+heatmap$site <- factor(heatmap$site, levels = c("Angel", "Dark_Slime", "N_Rock", "Reel_Sticky", "NNE", "XL", "Coopers", "Tuckers", "Spittal", "Elbow", "Tiger"))
+heatmap_plot_revBP <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient2(low = "white", high = "darkred", mid = "red", midpoint = 0.31) +
+  ylab ("Species") +
+  xlab("") + theme_classic() +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14),
+        axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+axis.text.y=element_text(face="italic", size = 12)) +
+  labs(fill = "Percent Contribution")
+heatmap_plot_revBP
+ggsave(plot = heatmap_plot_revBP, path= "~/Desktop/Lionfish", filename = "heatmap_final.eps", device = "eps")
+
+```
+Final Version in publication
+```{r}
+heatmap$site <- as.character(heatmap$site)
+heatmap$site <- factor(heatmap$site, levels = c("Angel", "Dark_Slime", "N_Rock", "Reel_Sticky", "NNE", "XL", "Coopers", "Tuckers", "Spittal", "Elbow", "Tiger"))
+heatmap_plot_revBP <- ggplot(data = heatmap, aes(x = site, y = species)) + geom_tile(aes(y = reorder(species, mean, order = TRUE), fill = mean), color = "white") +
+  scale_fill_gradient2(low = "white", high = "darkred", mid = "red", midpoint = 0.31) +
+  ylab ("Species") +
+  xlab("") + theme_bw() +
+  theme(legend.title = element_text(size = 10),
+        legend.text = element_text(size = 12),
+        plot.title = element_text(size=16),
+        axis.title=element_text(size=14),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+axis.text.y=element_text(face="italic")) +
+  labs(fill = "Percent Contribution")
+heatmap_plot_revBP
+ggsave(plot = heatmap_plot_revBP, path= "~/Desktop/Lionfish", filename = "heatmap_final2.eps", device = "eps")
 
 ```

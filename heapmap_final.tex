@@ -137,7 +137,7 @@ Loading Libraries
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching packages ------------------------------------------------------------------------------------------ tidyverse 1.2.1 --
+## -- Attaching packages --------------------------------------- tidyverse 1.2.1 --
 \end{verbatim}
 
 \begin{verbatim}
@@ -148,7 +148,7 @@ Loading Libraries
 \end{verbatim}
 
 \begin{verbatim}
-## -- Conflicts --------------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
@@ -190,7 +190,7 @@ Input datafile from computer
 ## )
 \end{verbatim}
 
-plot data
+plot data Basic Heatplot
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -199,6 +199,7 @@ plot data
 \end{Shaded}
 
 \includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-3-1.pdf}
+Changing color schemes
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -216,6 +217,7 @@ plot data
 \end{Shaded}
 
 \includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-4-1.pdf}
+Changing the order of the fish species
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -235,10 +237,12 @@ plot data
 
 \includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-5-1.pdf}
 
+First version sent to review
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{heatmap_plot_red <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, median, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_fill_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"darkred"}\NormalTok{) }\OperatorTok{+}
+\NormalTok{heatmap_plot_red <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{ylab}\NormalTok{ (}\StringTok{"Species"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{  }
 \StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{10}\NormalTok{),}
@@ -256,26 +260,7 @@ plot data
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{heatmap_plot_red <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, median, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{scale_fill_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{ylab}\NormalTok{ (}\StringTok{"Species"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{  }
-\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{10}\NormalTok{),}
-        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
-        \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{16}\NormalTok{),}
-        \DataTypeTok{axis.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{14}\NormalTok{,}\DataTypeTok{face=}\StringTok{"bold"}\NormalTok{),}
-        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{),}
-\DataTypeTok{axis.text.y=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Percent"}\NormalTok{)}
-\NormalTok{heatmap_plot_red}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-7-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggsave}\NormalTok{(heatmap, }\DataTypeTok{plot =}\NormalTok{ heatmap_plot_red, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{)}
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{plot =}\NormalTok{ heatmap_plot_red, }\DataTypeTok{path=} \StringTok{"~/Desktop/Lionfish"}\NormalTok{, }\DataTypeTok{filename =} \StringTok{"heatmap_plot_red_rev.eps"}\NormalTok{, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -283,7 +268,108 @@ plot data
 ## Saving 6.5 x 4.5 in image
 \end{verbatim}
 
-```
+Modifications made based on reviewer comments, including changing the
+x-axis to reorder sites in clockwise location around Bermuda and using
+mean instead of median for the order of the species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# reorder x axis to go around the platform}
+\CommentTok{# mtcars$cyl2 <- factor(mtcars$cyl, levels = c("6","4","8"))}
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{as.character}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site)}
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Angel"}\NormalTok{, }\StringTok{"Dark_Slime"}\NormalTok{, }\StringTok{"N_Rock"}\NormalTok{, }\StringTok{"Reel_Sticky"}\NormalTok{, }\StringTok{"NNE"}\NormalTok{, }\StringTok{"XL"}\NormalTok{, }\StringTok{"Coopers"}\NormalTok{, }\StringTok{"Tuckers"}\NormalTok{, }\StringTok{"Spittal"}\NormalTok{, }\StringTok{"Elbow"}\NormalTok{, }\StringTok{"Tiger"}\NormalTok{))}
+\NormalTok{heatmap_plot_rev <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_gradient}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{ (}\StringTok{"Species"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{10}\NormalTok{),}
+        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
+        \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{16}\NormalTok{),}
+        \DataTypeTok{axis.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{14}\NormalTok{,}\DataTypeTok{face=}\StringTok{"bold"}\NormalTok{),}
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{),}
+\DataTypeTok{axis.text.y=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Percent"}\NormalTok{)}
+\NormalTok{heatmap_plot_rev}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{plot =}\NormalTok{ heatmap_plot_rev, }\DataTypeTok{path=} \StringTok{"~/Desktop/Lionfish"}\NormalTok{, }\DataTypeTok{filename =} \StringTok{"heatmap_plot_rev.eps"}\NormalTok{, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
+
+Adjusting colors and font size
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{as.character}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site)}
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Angel"}\NormalTok{, }\StringTok{"Dark_Slime"}\NormalTok{, }\StringTok{"N_Rock"}\NormalTok{, }\StringTok{"Reel_Sticky"}\NormalTok{, }\StringTok{"NNE"}\NormalTok{, }\StringTok{"XL"}\NormalTok{, }\StringTok{"Coopers"}\NormalTok{, }\StringTok{"Tuckers"}\NormalTok{, }\StringTok{"Spittal"}\NormalTok{, }\StringTok{"Elbow"}\NormalTok{, }\StringTok{"Tiger"}\NormalTok{))}
+\NormalTok{heatmap_plot_revBP <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_gradient2}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"darkred"}\NormalTok{, }\DataTypeTok{mid =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{midpoint =} \FloatTok{0.31}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{ (}\StringTok{"Species"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{10}\NormalTok{),}
+        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
+        \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{16}\NormalTok{),}
+        \DataTypeTok{axis.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{14}\NormalTok{),}
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
+\DataTypeTok{axis.text.y=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{12}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Percent Contribution"}\NormalTok{)}
+\NormalTok{heatmap_plot_revBP}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{plot =}\NormalTok{ heatmap_plot_revBP, }\DataTypeTok{path=} \StringTok{"~/Desktop/Lionfish"}\NormalTok{, }\DataTypeTok{filename =} \StringTok{"heatmap_final.eps"}\NormalTok{, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
+
+Final Version in publication
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{as.character}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site)}
+\NormalTok{heatmap}\OperatorTok{$}\NormalTok{site <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(heatmap}\OperatorTok{$}\NormalTok{site, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{"Angel"}\NormalTok{, }\StringTok{"Dark_Slime"}\NormalTok{, }\StringTok{"N_Rock"}\NormalTok{, }\StringTok{"Reel_Sticky"}\NormalTok{, }\StringTok{"NNE"}\NormalTok{, }\StringTok{"XL"}\NormalTok{, }\StringTok{"Coopers"}\NormalTok{, }\StringTok{"Tuckers"}\NormalTok{, }\StringTok{"Spittal"}\NormalTok{, }\StringTok{"Elbow"}\NormalTok{, }\StringTok{"Tiger"}\NormalTok{))}
+\NormalTok{heatmap_plot_revBP <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ heatmap, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ site, }\DataTypeTok{y =}\NormalTok{ species)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tile}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{reorder}\NormalTok{(species, mean, }\DataTypeTok{order =} \OtherTok{TRUE}\NormalTok{), }\DataTypeTok{fill =}\NormalTok{ mean), }\DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_gradient2}\NormalTok{(}\DataTypeTok{low =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{high =} \StringTok{"darkred"}\NormalTok{, }\DataTypeTok{mid =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{midpoint =} \FloatTok{0.31}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ylab}\NormalTok{ (}\StringTok{"Species"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{10}\NormalTok{),}
+        \DataTypeTok{legend.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{12}\NormalTok{),}
+        \DataTypeTok{plot.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{16}\NormalTok{),}
+        \DataTypeTok{axis.title=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size=}\DecValTok{14}\NormalTok{),}
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{angle =} \DecValTok{45}\NormalTok{, }\DataTypeTok{hjust =} \DecValTok{1}\NormalTok{),}
+\DataTypeTok{axis.text.y=}\KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"italic"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"Percent Contribution"}\NormalTok{)}
+\NormalTok{heatmap_plot_revBP}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{heapmap_final_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{plot =}\NormalTok{ heatmap_plot_revBP, }\DataTypeTok{path=} \StringTok{"~/Desktop/Lionfish"}\NormalTok{, }\DataTypeTok{filename =} \StringTok{"heatmap_final2.eps"}\NormalTok{, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
 
 
 \end{document}
