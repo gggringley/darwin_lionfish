@@ -24,7 +24,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
 \hypersetup{unicode=true,
-            pdftitle={darwin\_GLM},
+            pdftitle={lionfish\_GLM},
             pdfauthor={GG},
             pdfborder={0 0 0},
             breaklinks=true}
@@ -113,7 +113,7 @@
 }
 
 \setlength{\droptitle}{-2em}
-  \title{darwin\_GLM}
+  \title{lionfish\_GLM}
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
   \author{GG}
@@ -137,7 +137,7 @@
 \end{Shaded}
 
 \begin{verbatim}
-## -- Attaching packages --------------------------------------- tidyverse 1.2.1 --
+## -- Attaching packages ------------------------------------------------------------- tidyverse 1.2.1 --
 \end{verbatim}
 
 \begin{verbatim}
@@ -148,7 +148,7 @@
 \end{verbatim}
 
 \begin{verbatim}
-## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## -- Conflicts ---------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 \end{verbatim}
@@ -378,6 +378,39 @@ from CRAN and github
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggsave}\NormalTok{(darwin, }\DataTypeTok{plot =}\NormalTok{ pca.plot2, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{, }\DataTypeTok{path =} \StringTok{"~/Desktop/Lionfish"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Saving 6.5 x 4.5 in image
+\end{verbatim}
+
+Changing size of bubbles to reflect lionfish density
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca.plot3 <-}\StringTok{ }\KeywordTok{autoplot}\NormalTok{(d.factanal2, }\DataTypeTok{data =}\NormalTok{ darwin, }\DataTypeTok{colour =} \StringTok{'lionfish_den'}\NormalTok{, }\DataTypeTok{size =} \StringTok{'lionfish_den'}\NormalTok{,}
+         \DataTypeTok{loadings =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{loadings.label =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{loadings.label.size  =} \DecValTok{5}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_classic}\NormalTok{() }\OperatorTok{+}\StringTok{  }\KeywordTok{scale_color_continuous}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{700}\NormalTok{), }\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{700}\NormalTok{, }\DataTypeTok{by=}\DecValTok{200}\NormalTok{)) }\OperatorTok{+}
+\StringTok{   }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{color=} \KeywordTok{guide_legend}\NormalTok{(), }\DataTypeTok{size=}\KeywordTok{guide_legend}\NormalTok{()) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_size_continuous}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{700}\NormalTok{), }\DataTypeTok{breaks=}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{700}\NormalTok{, }\DataTypeTok{by=}\DecValTok{200}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{scale_size_continuous}\NormalTok{(}\DataTypeTok{range =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Scale for 'size' is already present. Adding another scale for 'size',
+## which will replace the existing scale.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pca.plot3}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggsave}\NormalTok{(}\DataTypeTok{filename =} \StringTok{"lionfish_pca_rev3.eps"}\NormalTok{, }\DataTypeTok{plot =}\NormalTok{ pca.plot3, }\DataTypeTok{device =} \StringTok{"eps"}\NormalTok{, }\DataTypeTok{path =} \StringTok{"~/Desktop/Lionfish"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -828,16 +861,16 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{resid}\NormalTok{(fit_temp))}
+\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{resid}\NormalTok{(fit_temp)) }
 \KeywordTok{qqline}\NormalTok{(}\KeywordTok{resid}\NormalTok{(fit_temp))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-12-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -845,7 +878,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -854,7 +887,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-13-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -862,7 +895,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -871,7 +904,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-14-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -879,7 +912,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -888,7 +921,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-15-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-17-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -896,7 +929,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -905,7 +938,7 @@ Testing covairance
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-16-2.pdf}
+\includegraphics{darwin_GLM_final_files/figure-latex/unnamed-chunk-18-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]

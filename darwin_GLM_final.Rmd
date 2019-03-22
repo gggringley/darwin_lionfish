@@ -89,7 +89,6 @@ summary(fit3)
 ```
 Testing covairance
 ```{r}
-install.packages('data.table')
 library(car)
 sqrt(vif(fit3))
 ```
